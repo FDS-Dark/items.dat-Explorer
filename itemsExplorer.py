@@ -860,9 +860,6 @@ def setupMain(a=None):
         else:
             print("\nInvalid Input!")
 
-#data = decFile(open(itemsDat, 'rb').read())
-#print(data[0:214])
-
 logo = """
 ---------------------------------
   ______ _____   _____ 
@@ -885,6 +882,7 @@ while True:
     if len(spritesLen) == 0:
         print("Loading item sprite files...")
         reloadItems()
+        print("Items loaded!")
         break
     else:
         realoadBool = input("Would you like to reload item sprite files? (Y/N)\n")
