@@ -543,7 +543,7 @@ def compareItems(old, new):
         f.write("New items:\n")
         for item in differences:
             f.write(item + "\n")
-    print("\nYou'll find your requested properties in the 'output' directory in the text file 'comparedFiles.txt'")
+    print("\nYou'll find the differences file in the 'output' directory in the text file 'comparedFiles.txt'")
 
 def checkForFolders():
     curDir = os.getcwd()
@@ -788,15 +788,21 @@ def setupMain(a=None):
                 print("\nInvalid Input!")
         elif option == "3":
             itemsPath = os.getcwd() + r'\inputs'
-            newItemsList = input("\nPlease place the old and new items.dat files into the 'inputs' directory and type enter anything when done. Files should be labeled 'newitems.dat' and 'olditems.dat'.\n")
+            newItemsList = input("\nPlease place the old and new items.dat files into the 'inputs' directory and type enter anything when done. Files should be labeled 'newitems.dat' and 'olditems.dat'. (You can also type 'current' in order to compare the oldItems.dat to the current items.dat)\n")
             oldItemsDat = os.getcwd() + '\inputs\oldItems.dat'
             newItemsDat = os.getcwd() + '\inputs\\newItems.dat'
 
-            if os.path.exists(oldItemsDat) and os.path.exists(newItemsDat):
-                compareItems(oldItemsDat, newItemsDat)
+            if os.path.exists(oldItemsDat):
+                if newItemsList.lower() != "current":
+                    if os.path.exists(newItemsDat):
+                        compareItems(oldItemsDat, newItemsDat)
+                    else:
+                        print("\nOne or both of the files are missing! Make sure that the old file is named 'oldItems.dat'!")
+
+                elif newItemsList.lower() == "current":
+                    compareItems(oldItemsDat, itemsDat)
             else:
-                newItemsList = input("\nPlease place the old and new items.dat files into the 'inputs' directory and type enter anything when done. Files should be labeled 'newitems.dat' and 'olditems.dat'.\n")
-                compareItems(oldItemsDat, newItemsDat)
+                print("\nOne or both of the files are missing! Make sure the old file is named 'oldItems.dat' and the new one is named 'newItems.dat'!")
 
         elif option == "4":
             textureFile = input("\nPlease input texture file to convert to png.\n")
